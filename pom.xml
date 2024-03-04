@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>net.logstash.logback</groupId>
-    <artifactId>logstash-logback-encoder</artifactId>
+    <artifactId>logstash-logback-encoder-brainco</artifactId>
     <version>7.5-SNAPSHOT</version>
 
     <name>Logstash Logback Encoder</name>
@@ -11,15 +11,8 @@
     <url>https://github.com/logfellow/logstash-logback-encoder</url>
     <inceptionYear>2013</inceptionYear>
 
-    <scm>
-        <url>https://github.com/logfellow/logstash-logback-encoder</url>
-        <connection>scm:git:https://github.com/logfellow/logstash-logback-encoder</connection>
-        <developerConnection>scm:git:https://github.com/logfellow/logstash-logback-encoder</developerConnection>
-        <tag>HEAD</tag>
-    </scm>
-
     <properties>
-        <java.version>8</java.version>
+        <java.version>21</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <!-- runtime dependencies -->
@@ -39,23 +32,20 @@
 
         <!-- maven plugins -->
         <extra-enforcer-rules.version>1.6.1</extra-enforcer-rules.version>
-        <license-maven-plugin.version>4.1</license-maven-plugin.version>
         <maven-bundle-plugin.version>5.1.9</maven-bundle-plugin.version>
         <maven-checkstyle-plugin.version>3.3.0</maven-checkstyle-plugin.version>
         <maven-clean-plugin.version>3.2.0</maven-clean-plugin.version>
         <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
         <maven-enforcer-plugin.version>3.2.1</maven-enforcer-plugin.version>
         <maven-flatten-plugin.version>1.5.0</maven-flatten-plugin.version>
-        <maven-gpg-plugin.version>3.0.1</maven-gpg-plugin.version>
         <maven-install-plugin.version>3.1.1</maven-install-plugin.version>
         <maven-jar-plugin.version>3.3.0</maven-jar-plugin.version>
         <maven-javadoc-plugin.version>3.5.0</maven-javadoc-plugin.version>
         <maven-release-plugin.version>2.5.3</maven-release-plugin.version>
         <maven-resources-plugin.version>3.3.1</maven-resources-plugin.version>
-        <maven-shade-plugin.version>3.4.1</maven-shade-plugin.version>
+        <maven-shade-plugin.version>3.5.1</maven-shade-plugin.version>
         <maven-source-plugin.version>3.3.0</maven-source-plugin.version>
         <maven-surefire-plugin.version>3.1.0</maven-surefire-plugin.version>
-        <nexus-staging-maven-plugin.version>1.6.13</nexus-staging-maven-plugin.version>
         <xml-maven-plugin.version>1.0.2</xml-maven-plugin.version>
 
         <checkstyle.version>10.7.0</checkstyle.version>
@@ -72,44 +62,6 @@
          -->
         <surefire.reportsSubDir>default</surefire.reportsSubDir>
     </properties>
-
-    <licenses>
-        <license>
-            <name>Apache License, Version 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0</url>
-        </license>
-        <license>
-            <name>MIT License</name>
-            <url>http://www.slf4j.org/license.html</url>
-            <comments>
-                The portion of LogstashBasicMarker.java that has been copied from 
-                org.slf4j.helpers.BasicMarker is released under the MIT License.
-            </comments>
-        </license>
-    </licenses>
-
-    <developers>
-        <developer>
-            <id>neilprosser</id>
-            <name>Neil Prosser</name>
-            <email>neil.prosser@gmail.com</email>
-            <organization>Nokia</organization>
-            <organizationUrl>http://music.nokia.com</organizationUrl>
-        </developer>
-        <developer>
-            <id>philsttr</id>
-            <name>Phil Clay</name>
-        </developer>
-        <developer>
-            <id>lusis</id>
-            <name>John E. Vincent</name>
-            <email>lusis.org+github.com@gmail.com</email>
-        </developer>
-        <developer>
-            <id>brenuart</id>
-            <name>Bertrand Renuart</name>
-        </developer>
-    </developers>
 
     <dependencyManagement>
         <dependencies>
@@ -295,30 +247,6 @@
                 </dependencies>
             </plugin>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>com.mycila</groupId>
-                <artifactId>license-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <phase>process-sources</phase>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>${maven-jar-plugin.version}</version>
                 <configuration>
@@ -465,29 +393,6 @@
                     </execution>
                 </executions>
             </plugin>
-            
-            <!-- Install JaCoCo agent and produce reports at the end of the build.
-            -->
-            <plugin>
-                <groupId>org.jacoco</groupId>
-                <artifactId>jacoco-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>jacoco-prepare-agent</id>
-                        <phase>process-test-classes</phase> <!-- must be ready for the `test` phase, default is "initialize" -->
-                        <goals>
-                            <goal>prepare-agent</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>jacoco-report</id>
-                        <phase>verify</phase> <!-- this is the default -->
-                        <goals>
-                            <goal>report</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
         </plugins>
         <pluginManagement>
             <plugins>
@@ -580,25 +485,6 @@
                 </plugin>
                 
                 <plugin>
-                    <groupId>com.mycila</groupId>
-                    <artifactId>license-maven-plugin</artifactId>
-                    <version>${license-maven-plugin.version}</version>
-                    <configuration>
-                        <header>license-header.txt</header>
-                        <mapping>
-                            <java>SLASHSTAR_STYLE</java>
-                        </mapping>
-                        <includes>
-                            <include>src/main/java/**</include>
-                            <include>src/test/java/**</include>
-                        </includes>
-                        <defaultProperties>
-                            <year>2023</year>
-                        </defaultProperties>
-                    </configuration>
-                </plugin>
-                
-                <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-release-plugin</artifactId>
                     <version>${maven-release-plugin.version}</version>
@@ -609,64 +495,10 @@
                     <artifactId>maven-resources-plugin</artifactId>
                     <version>${maven-resources-plugin.version}</version>
                 </plugin>
-                
-                <!-- Java Code Coverage (JaCoCo)
-                 -->
-                <plugin>
-                    <groupId>org.jacoco</groupId>
-                    <artifactId>jacoco-maven-plugin</artifactId>
-                    <version>0.8.10</version>
-                    <configuration>
-                        <!-- Only instrument "net.logstash.**" by default
-                         -->
-                        <includes>
-                            <include>net/logstash/**</include>
-                        </includes>
-                        
-                        <!-- Produce XML report for Codecov, and HTML for local builds if user wants to
-                             have a look at it...    
-                         -->
-                        <formats>
-                            <format>XML</format>
-                            <format>HTML</format>
-                        </formats>
-                    </configuration>
-                </plugin>
             </plugins>
         </pluginManagement>
     </build>
     <profiles>
-        <profile>
-            <id>ossrh</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-gpg-plugin</artifactId>
-                        <version>${maven-gpg-plugin.version}</version>
-                        <executions>
-                            <execution>
-                                <id>sign-artifacts</id>
-                                <goals>
-                                    <goal>sign</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.sonatype.plugins</groupId>
-                        <artifactId>nexus-staging-maven-plugin</artifactId>
-                        <version>${nexus-staging-maven-plugin.version}</version>
-                        <extensions>true</extensions>
-                        <configuration>
-                            <serverId>ossrh</serverId>
-                            <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-                            <autoReleaseAfterClose>true</autoReleaseAfterClose>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
         
         <profile>
             <id>java15</id>
@@ -681,43 +513,6 @@
             </properties>
         </profile>
 
-        <profile>
-            <id>github</id>
-            <activation>
-                <property>
-                    <name>env.CI</name>
-                </property>
-            </activation>
-            <properties>
-                <maven.test.redirectTestOutputToFile>true</maven.test.redirectTestOutputToFile>
-            </properties>
-        </profile>
-        
-        <!--
-            Profile used by the Eclipse Maven plugin (m2eclipse).
-            
-            Activation:
-                Profile is activated if the property "m2e.version" is found.
-                The Eclipse plugin automatically exports this property which in turn causes the profile
-                to be automatically activated under Eclipse.
-         -->
-        <profile>
-            <id>m2e</id>
-            <activation>
-                <property>
-                    <name>m2e.version</name>
-                </property>
-            </activation>
-
-            <build>
-                <!--
-                    Tell eclipse to use another directory for its generated classes than the one
-                    used by the command line Maven.
-                 -->
-                <directory>target-eclipse</directory>
-            </build>
-        </profile>
-        
         <!-- 
             "Fast" profile that can be used during local development to disable most of the "heavy"
             steps not strictly required to produce a final jar.
@@ -760,7 +555,7 @@
                 </plugins>
             </build>
         </profile>
-        
+
         <!--
             Profile used to run backward compatibility tests against jackson 2.12
         -->
@@ -774,14 +569,16 @@
     </profiles>
 
     <distributionManagement>
-        <snapshotRepository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
         <repository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+            <id>maven-releases</id>
+            <name>Releases repository of BrainCo components</name>
+            <url>https://nexus.ci.brainco.cn/repository/maven-releases/</url>
         </repository>
+        <snapshotRepository>
+            <id>maven-snapshots</id>
+            <name>Snapshots repository of BrainCo components</name>
+            <url>https://nexus.ci.brainco.cn/repository/maven-snapshots/</url>
+        </snapshotRepository>
     </distributionManagement>
 
 </project>
